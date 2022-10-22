@@ -1,18 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './@shared';
+import { WrapperComponent } from './@shared';
+import { NumberToString } from './@shared';
+
+import { BadgeModule } from 'primeng/badge';
+import { ImageModule } from 'primeng/image'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    WrapperComponent,
+    NumberToString
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BadgeModule,
+    ImageModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
