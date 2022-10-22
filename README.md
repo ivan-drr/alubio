@@ -29,3 +29,10 @@ _¿No tienes suficiente? Vamos al nivel God del Junior. Resulta que nos aseguran
 > Opción 1: Implementaría una alerta antes de que se ejecute la llamada a base de datos, si la última actualización se realizó entre la iteración del ultimo script y ahora, se detectará que estás intentando "machacar" datos ya actualizados y se le informará al usuario de que existen datos recientes que borrará si desea persistir estos.
 > 
 > Opción 2: Generaría IDs únicas para cada dispositivo algo como una GUID(un integer de 128 bits), de esta forma podría controlar que dispositivo fue el último en persistir cambios, cuando, e incluso que cambios y compararlos.
+
+### Subiendo el nivel del Reto.
+_El Detalle A. Muestra la fecha “dob” como la diferencia de tiempo entre la fecha de nacimiento y la fecha actual. Por ejemplo, si “dob” es 07-20-1982, y estamos a 07-23-2022, se leería: “Nació hace 40 años y 3 días (07-20-1982)”._
+> Haría esta funcionalidad con una pipe BirthDate.pipe.ts
+
+### Aclaración personal
+> En varios apartados se hace mención a llamadas inútiles al backend. La mayoría de ellas las resolvería cacheándolas, una vez ha sido ejecutado el aplicativo, si accedo a la vista de owners, salgo y vuelvo a entrar, es una tontería volver a pedir los recursos a menos que algo haya cambiado. Esto dependiendo de la API que use lo conseguiría de varias formas, por ejemplo como ya he hecho en otros proyectos, las llamadas a firebase se cachean automáticamente, además lo configuré para persistencia offline automática, lo cual resuelve la mayoría de problemas comunes.
