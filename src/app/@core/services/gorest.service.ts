@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
 
 import { Owner, OwnerRaw } from 'src/app/@shared';
@@ -11,6 +11,7 @@ import { LoggerService } from './logger.service';
 })
 export class GorestService {
   apiURL = 'https://gorest.co.in/public/v2/';
+  matagatos: BehaviorSubject<number> = new BehaviorSubject<number>(0)
 
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
@@ -23,11 +24,14 @@ export class GorestService {
   };
 
   getOwners(): Observable<Owner[]> {
+    this.matagatos.next(this.matagatos.value + 1);
+    console.log(this.matagatos.value);
+    
     return this.http
       .get<OwnerRaw[]>(this.apiURL + '/users')
       .pipe(
         map((items: OwnerRaw[]) => items
-          .map(owner => ({ id: owner.id, firstName: this.getFirstName(owner.name), lastName: this.getLastName(owner.name), gender: owner.gender, status: this.mapStatus(owner.status) } as Owner))
+          .map(owner => ({ id: owner.id, firstName: this.getFirstName(owner.name), lastName: this.getLastName(owner.name), gender: owner.gender, status: this.mapStatus(owner.status), email: owner.email } as Owner))
         ),
         retry(1),
         catchError(this.handleError)
@@ -47,12 +51,14 @@ export class GorestService {
   }
 
   getOwner(id: any): Observable<Owner> {
+    this.matagatos.next(this.matagatos.value + 1);
     return this.http
       .get<Owner>(this.apiURL + '/users/' + id)
       .pipe(retry(1), catchError(this.handleError));
   }
 
   createOwner(owner: Owner): Observable<Owner> {
+    this.matagatos.next(this.matagatos.value + 1);
     return this.http
       .post<Owner>(
         this.apiURL + '/users',
@@ -63,6 +69,7 @@ export class GorestService {
   }
 
   updateOwner(id: number, employee: Owner): Observable<Owner> {
+    this.matagatos.next(this.matagatos.value + 1);
     return this.http
       .put<Owner>(
         this.apiURL + '/users/' + id,
@@ -72,13 +79,14 @@ export class GorestService {
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  deleteOwner(id: number) {
+  deleteOwner(id: number): Observable<Owner> {
+    this.matagatos.next(this.matagatos.value + 1);
     return this.http
       .delete<Owner>(this.apiURL + '/users/' + id, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
   }
 
-  handleError(error: any) {
+  handleError(error: any): Observable<never> {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FavoritesService, GorestService } from 'src/app/@core';
+import { pageView } from 'src/app/@shared';
 
 @Component({
   selector: 'app-header',
@@ -7,12 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  mataGatos: number = 0;
+  title: string = 'Home';
+
+  matagatos: number = 0;
   favoritos: number = 0;
 
-  constructor() { }
+  constructor(private favoritesService: FavoritesService, private gorest: GorestService) { }
 
   ngOnInit() {
+    this.subscribeFavorites();
+    this.subscribePageView();
+    this.subscribeMatagatos();
+  }
+
+  subscribeFavorites() {
+    this.favoritesService.favorites
+      .subscribe(favorites => this.favoritos = favorites.length);
+  }
+
+  subscribeMatagatos() {
+    this.gorest.matagatos
+      .subscribe(matagatos => {
+        this.matagatos = matagatos;
+        console.log(matagatos);
+      });
+  }
+
+  subscribePageView() {
+    pageView
+      .subscribe(currentPage => this.title = currentPage);
   }
 
 }

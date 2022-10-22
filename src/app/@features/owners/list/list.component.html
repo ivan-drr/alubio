@@ -10,7 +10,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr style="height:40px">
+        <tr style="height:40px" (click)="showDetails(rowData)">
             <td>{{rowData.firstName | summarizeText:[10]}}</td>
             <td>{{rowData.lastName | summarizeText:[7]}}</td>
             <td>{{rowData.gender}}</td>
@@ -24,5 +24,6 @@
             </td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="lo"></ng-template>
 </p-table>
+
+<app-modal-details [show]="displayDetails" (showDetailsChanged)="showDetailsChangeHandler($event)" [owner]="selectedOwner"></app-modal-details>

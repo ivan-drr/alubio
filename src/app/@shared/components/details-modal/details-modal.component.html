@@ -1,0 +1,10 @@
+<p-dialog header="Details" position="bottom" [draggable]="false" [resizable]="false" [modal]="false" [closable]="true" appendTo="body" [(visible)]="show"
+    (onHide)="handleHide()">
+    <p><b>First Name: </b>{{owner?.firstName}}</p>
+    <p><b>Last Name: </b>{{owner?.lastName}}</p>
+    <p><b>Gender: </b>{{owner?.gender}}</p>
+    <p><b>Email: </b>{{owner?.email}}</p>
+    <p><b>Status: </b>{{(owner?.status) ? 'active' : 'inactive'}}</p>
+
+    <button #favoriteIcon pButton pRipple [style]="{float: 'right'}" (click)="handleToggleFavorites()" type="button" [icon]="getFavoriteIcon()" class="p-button-rounded"></button>
+</p-dialog>
