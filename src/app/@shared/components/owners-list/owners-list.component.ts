@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GorestService } from 'src/app/@core';
 import { Owner } from 'src/app/@shared';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'app-owners-list',
+  templateUrl: './owners-list.component.html',
+  styleUrls: ['./owners-list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class OwnersListComponent implements OnInit {
 
   owners!: Owner[];
   loading: boolean = true
 
   displayDetails: boolean = false;
   selectedOwner!: Owner;
+
+  @Output() datatable = new EventEmitter<any>();
 
   constructor(private gorest: GorestService) { }
 

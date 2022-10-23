@@ -25,7 +25,6 @@ export class GorestService {
 
   getOwners(): Observable<Owner[]> {
     this.matagatos.next(this.matagatos.value + 1);
-    console.log(this.matagatos.value);
     
     return this.http
       .get<OwnerRaw[]>(this.apiURL + '/users')

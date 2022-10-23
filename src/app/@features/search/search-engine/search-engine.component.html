@@ -1,3 +1,4 @@
-<p>
-  search-engine works!
-</p>
+<span class="p-input-icon-left ml-auto">
+  <i class="pi pi-search"></i>
+  <input pInputText type="text" (input)="datatable.filterGlobal($any($event.target).value, 'contains')" placeholder="Search" />
+</span>

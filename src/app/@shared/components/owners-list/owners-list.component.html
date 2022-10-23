@@ -1,7 +1,15 @@
-<p-table [style]="{width: '380px', marginTop: '350px'}" [columns]="['First Name', 'Last Name', 'Gender', 'Status']"
+<p-table #datatable [style]="{width: '380px', marginTop: '450px'}" [columns]="['First Name', 'Last Name', 'Gender', 'Status']"
     [value]="owners" [loading]="loading" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="500px"
     [virtualScroll]="true" [virtualScrollItemSize]="10" [lazy]="true" (onLazyLoad)="lazyLoadOwners()"
-    [virtualScrollOptions]="{numToleratedItems: 10}">
+    [virtualScrollOptions]="{numToleratedItems: 10}" [globalFilterFields]="['firstName','lastName']">
+    <ng-template pTemplate="caption">
+        <div class="flex">
+            <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="datatable.filterGlobal($any($event.target).value, 'contains')" placeholder="Search" />
+            </span>
+        </div>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th [style]="{textAlign: 'center'}" *ngFor="let column of columns">

@@ -31,7 +31,6 @@ export class HeaderComponent implements OnInit {
     this.gorest.matagatos
       .subscribe(matagatos => {
         this.matagatos = matagatos;
-        console.log(matagatos);
       });
   }
 

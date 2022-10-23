@@ -5,9 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './@shared';
-import { WrapperComponent } from './@shared';
-import { NumberToString } from './@shared';
+import { SharedModule } from './@shared';
 import { FavoritesService, GorestService } from './@core';
 
 import { BadgeModule } from 'primeng/badge';
@@ -15,15 +13,13 @@ import { ImageModule } from 'primeng/image';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    WrapperComponent,
-    NumberToString
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    SharedModule,
     HttpClientModule,
     BadgeModule,
     ImageModule
