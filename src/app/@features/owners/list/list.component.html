@@ -4,7 +4,7 @@
     [virtualScrollOptions]="{numToleratedItems: 10}">
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let column of columns">
+            <th [style]="{textAlign: 'center'}" *ngFor="let column of columns">
                 {{column}}
             </th>
         </tr>
