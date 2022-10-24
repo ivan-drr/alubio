@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, throwError, of } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
 
-import { Owner, OwnerRaw } from 'src/app/@shared';
+import { Owner, OwnerRaw, safeSubscribe } from 'src/app/@shared';
 import { environment } from 'src/environments/environment';
 import { LoggerService } from './logger.service';
 @Injectable({
@@ -11,7 +11,11 @@ import { LoggerService } from './logger.service';
 })
 export class GorestService {
   apiURL = 'https://gorest.co.in/public/v2/';
-  matagatos: BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  matagatos: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  owners: BehaviorSubject<Owner[]> = new BehaviorSubject<Owner[]>([]);
+
+  ownersSubscription!: Subscription;
+  ownersPeriodicSubscription!: Subscription;
 
   constructor(private http: HttpClient, private logger: LoggerService) { }
 
@@ -23,9 +27,13 @@ export class GorestService {
     }),
   };
 
-  getOwners(): Observable<Owner[]> {
+  handleGetOwners(): Observable<Owner[]> {
+    if (this.owners.value.length > 0) return this.getOwnersReminder();
+    else return this.getOwners();
+  }
+
+  private getOwners(): Observable<Owner[]> {
     this.matagatos.next(this.matagatos.value + 1);
-    
     return this.http
       .get<OwnerRaw[]>(this.apiURL + '/users')
       .pipe(
@@ -35,6 +43,22 @@ export class GorestService {
         retry(1),
         catchError(this.handleError)
       );
+  }
+
+  private getOwnersReminder(): Observable<Owner[]> {
+    return of(this.owners.value);
+  }
+
+  perdiodicUpdateOwners() {
+    setInterval(() => {
+      this.ownersPeriodicSubscription = safeSubscribe(this.getOwners(), this.ownersPeriodicSubscription)
+        .subscribe((o: Owner[]) => this.owners.next(o));
+    }, 300000);
+  }
+
+  subscribeOwners(): void {
+    this.ownersSubscription = safeSubscribe(this.handleGetOwners(), this.ownersSubscription)
+      .subscribe((o: Owner[]) => this.owners.next(o));
   }
 
   private getFirstName(name: string): string {

@@ -10,7 +10,7 @@ import { Owner } from 'src/app/@shared';
 export class OwnersListComponent implements OnInit {
 
   owners!: Owner[];
-  loading: boolean = true
+  loading: boolean = false
 
   displayDetails: boolean = false;
   selectedOwner!: Owner;
@@ -20,15 +20,13 @@ export class OwnersListComponent implements OnInit {
   constructor(private gorest: GorestService) { }
 
   ngOnInit() {
+    this.gorest.subscribeOwners();
+    this.gorest.perdiodicUpdateOwners();
   }
 
   lazyLoadOwners() {
-    this.gorest.getOwners()
-      .subscribe(owners => {
-        if (!this.loading) this.loading = true;
-        this.owners = owners;
-        this.loading = false;
-      })
+    this.gorest.owners
+      .subscribe((o: Owner[]) => this.owners = o);
   }
 
   showDetails(owner: Owner) {
