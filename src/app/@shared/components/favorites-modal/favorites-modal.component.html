@@ -1,7 +1,7 @@
 <p-dialog header="Favorites" [draggable]="false" [resizable]="false" [modal]="true" [closable]="true" appendTo="body"
   [(visible)]="show" (onHide)="handleHide()">
   <p-table #datatable [value]="favorites" [paginator]="true" [rows]="10" responsiveLayout="scroll"
-    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped"
+    styleClass="p-datatable-sm p-datatable-gridlines"
     [globalFilterFields]="['firstName', 'lastName', 'gender', 'status']">
     <ng-template pTemplate="header">
       <tr>
