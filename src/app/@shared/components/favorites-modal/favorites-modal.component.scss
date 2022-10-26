@@ -1,3 +1,10 @@
 .row:hover {
     background-color: var(--primary-color);
 }
+
+#emptymessage {
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%);
+    transform: translate(-50%)
+}

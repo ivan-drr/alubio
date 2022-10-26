@@ -1,43 +1,42 @@
-<p-dialog header="Favorites" [draggable]="false" [resizable]="false" [modal]="true" [closable]="true" appendTo="body"
+<p-dialog [style]="{height: '400px'}" header="Favorites" [draggable]="false" [resizable]="false" [modal]="true" [closable]="true" appendTo="body"
   [(visible)]="show" (onHide)="handleHide()">
-  <p-table #datatable [value]="favorites" [paginator]="true" [rows]="10" responsiveLayout="scroll"
-    styleClass="p-datatable-sm p-datatable-gridlines"
+  <p-table #datatable [value]="favorites" responsiveLayout="scroll" styleClass="p-datatable-sm p-datatable-gridlines"
     [globalFilterFields]="['firstName', 'lastName', 'gender', 'status']">
     <ng-template pTemplate="header">
       <tr>
         <th>
           <div class="p-d-flex p-jc-between p-ai-center">
             First Name
-            <p-columnFilter type="text" field="firstName" display="menu"></p-columnFilter>
           </div>
         </th>
         <th>
           <div class="p-d-flex p-jc-between p-ai-center">
             Last Name
-            <p-columnFilter type="text" field="lastName" display="menu"></p-columnFilter>
           </div>
         </th>
         <th>
           <div class="p-d-flex p-jc-between p-ai-center">
             Gender
-            <p-columnFilter type="text" field="gender" display="menu"></p-columnFilter>
           </div>
         </th>
         <th>
           <div class="p-d-flex p-jc-between p-ai-center">
             Status
-            <p-columnFilter type="boolean" field="status" display="menu"></p-columnFilter>
           </div>
         </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-favorite>
+    <ng-template pTemplate="body" [style]="{textAlign: 'center'}" let-favorite>
       <tr class="row" style="height:40px; cursor:pointer" (click)="showDetails(favorite)">
         <td>{{favorite.firstName | summarizeText:[10]}}</td>
         <td>{{favorite.lastName | summarizeText:[7]}}</td>
         <td>{{favorite.gender}}</td>
         <td>{{favorite.status}}</td>
       </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <button id="emptymessage" routerLink="owners" pButton pRipple type="button"
+        label="No favorites yet" class="p-button-text" [disabled]="true"></button>
     </ng-template>
   </p-table>
 </p-dialog>
