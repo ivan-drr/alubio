@@ -15,6 +15,7 @@ import { SummarizeTextPipe } from '../pipes/summarize-text.pipe';
 import { NumberToStringPipe } from '../pipes/number-to-string.pipe';
 import { BadgeModule } from 'primeng/badge';
 import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { InputTextModule } from 'primeng/inputtext';
     ButtonModule,
     ImageModule,
     BadgeModule,
-    InputTextModule
+    InputTextModule,
+    CardModule
   ],
   declarations: [
     DetailsModalComponent,

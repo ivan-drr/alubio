@@ -32,7 +32,7 @@ export class GorestService {
     else return this.getOwners();
   }
 
-  private getOwners(): Observable<Owner[]> {
+  getOwners(): Observable<Owner[]> {
     this.matagatos.next(this.matagatos.value + 1);
     return this.http
       .get<OwnerRaw[]>(this.apiURL + '/users')

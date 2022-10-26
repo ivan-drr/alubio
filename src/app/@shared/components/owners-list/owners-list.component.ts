@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GorestService } from 'src/app/@core';
 import { Owner } from 'src/app/@shared';
 
@@ -10,23 +10,41 @@ import { Owner } from 'src/app/@shared';
 export class OwnersListComponent implements OnInit {
 
   owners!: Owner[];
-  loading: boolean = false
+  loading: boolean = true;
+  ownersLoad: number = 0;
 
   displayDetails: boolean = false;
   selectedOwner!: Owner;
 
-  @Output() datatable = new EventEmitter<any>();
+  @Input('search') search: boolean = false;
 
   constructor(private gorest: GorestService) { }
 
   ngOnInit() {
+    this.loadOwners();
     this.gorest.subscribeOwners();
     this.gorest.perdiodicUpdateOwners();
   }
 
-  lazyLoadOwners() {
-    this.gorest.owners
-      .subscribe((o: Owner[]) => this.owners = o);
+  loadOwners() {
+    if (this.gorest.owners)
+      this.gorest.owners
+        .subscribe((o: any) => {
+          this.ownersLoad++;
+          if (this.ownersLoad === 1) return;
+
+          this.owners = o;
+          this.loading = false;
+        });
+  }
+
+  showMore() {
+    this.loading = true;
+    this.gorest.getOwners()
+      .subscribe((owners: Owner[]) => {
+        this.owners = [...this.owners, ...owners];
+        this.loading = false;
+      });
   }
 
   showDetails(owner: Owner) {

@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   matagatos: number = 0;
   favoritos: number = 0;
 
+  displayFavorites: boolean = false;
+
   constructor(private favoritesService: FavoritesService, private gorest: GorestService) { }
 
   ngOnInit() {
@@ -37,6 +39,10 @@ export class HeaderComponent implements OnInit {
   subscribePageView() {
     pageView
       .subscribe(currentPage => this.title = currentPage);
+  }
+
+  showFavoritesChangeHandler(show: boolean) {
+    this.displayFavorites = show;
   }
 
 }

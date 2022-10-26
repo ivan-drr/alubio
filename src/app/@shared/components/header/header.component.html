@@ -13,6 +13,10 @@
     </div>
   </div>
   <div class="header-item" [style]="{marginLeft: '-25px', marginTop: '6px'}">
-    <i class="pi pi-heart mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="favoritos | numberToString"></i>
+    <i (click)="displayFavorites=true" [style]="{cursor: 'pointer'}" class="pi pi-heart mr-4 p-text-secondary" pBadge style="font-size: 2rem"
+      [value]="favoritos | numberToString"></i>
   </div>
 </div>
+
+<app-favorites-modal [show]="displayFavorites" (showFavoritesChanged)="showFavoritesChangeHandler($event)">
+</app-favorites-modal>
