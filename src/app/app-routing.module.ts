@@ -21,6 +21,14 @@ const routes: Routes = [
     path: 'thanks',
     loadChildren: () =>
       import('./@features/thanks/thanks.module').then((m) => m.ThanksModule)
+  },
+  {
+    path: '404', loadChildren: () =>
+      import('./@features/home/home.module').then((m) => m.HomeModule)
+  },
+  {
+    path: '**', loadChildren: () =>
+      import('./@features/home/home.module').then((m) => m.HomeModule)
   }
 ];
 
@@ -28,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
