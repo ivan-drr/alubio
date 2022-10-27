@@ -1,4 +1,4 @@
-<span class="p-input-icon-left ml-auto">
-  <i class="pi pi-search"></i>
-  <input pInputText type="text" (input)="datatable.filterGlobal($any($event.target).value, 'contains')" placeholder="Search" />
-</span>
+<div class="p-inputgroup searchBtn" [style]="{marginTop: '2rem'}">
+  <input #nameInput type="text" pInputText placeholder="Name">
+  <button type="button" (click)="handleSearch(nameInput.value)" pButton pRipple styleClass="p-button-warn">Search</button>
+</div>

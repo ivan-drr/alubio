@@ -13,8 +13,8 @@
     </div>
   </div>
   <div class="header-item" [style]="{marginLeft: '-25px', marginTop: '6px'}">
-    <i (click)="displayFavorites=true" [style]="{cursor: 'pointer'}" class="pi pi-heart mr-4 p-text-secondary" pBadge style="font-size: 2rem"
-      [value]="favoritos | numberToString"></i>
+    <i (click)="displayFavorites=true" [style]="{cursor: 'pointer', fontSize: '2rem'}"
+      class="pi pi-heart mr-4 p-text-secondary" pBadge [value]="favoritos | numberToString"></i>
   </div>
 </div>
 

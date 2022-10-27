@@ -23,7 +23,7 @@ export class FavoritesModalComponent implements OnInit, OnDestroy {
   constructor(private favoritesService: FavoritesService) { }
 
   ngOnInit() {
-    this.favoritesSubscription = safeSubscribe(this.favoritesService.favorites, this.favoritesSubscription)
+    this.favoritesSubscription = safeSubscribe(this.favoritesService.favorites$, this.favoritesSubscription)
       .subscribe((favorites: Owner[]) => this.favorites = favorites);
   }
 

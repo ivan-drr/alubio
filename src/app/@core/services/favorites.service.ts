@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Owner } from 'src/app/@shared';
 
 @Injectable({
@@ -7,7 +7,8 @@ import { Owner } from 'src/app/@shared';
 })
 export class FavoritesService {
 
-  favorites: BehaviorSubject<Owner[]> = new BehaviorSubject<Owner[]>([])
+  private favorites: BehaviorSubject<Owner[]> = new BehaviorSubject<Owner[]>([])
+  favorites$: Observable<Owner[]> = this.favorites.asObservable();
 
   constructor() { }
 

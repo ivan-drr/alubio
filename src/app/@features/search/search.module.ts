@@ -6,13 +6,15 @@ import { SearchComponent } from './search.component';
 import { SharedModule } from 'src/app/@shared';
 import { SearchEngineComponent } from './search-engine/search-engine.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   imports: [
     CommonModule,
     SearchRoutingModule,
     SharedModule,
-    InputTextModule
+    InputTextModule,
+    ButtonModule
   ],
   declarations: [
     SearchComponent,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GorestService } from 'src/app/@core';
+import { Owner } from 'src/app/@shared';
 
 @Component({
   selector: 'app-owners',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OwnersComponent implements OnInit {
 
-  constructor() { }
+  owners: Owner[] = [];
+  loading: boolean = true;
+
+  constructor(private gorest: GorestService) { }
 
   ngOnInit() {
+    this.loadOwners();
+  }
+  
+  loadOwners() {
+    this.gorest.getOwners()
+      .subscribe((owners: Owner[]) => {
+        this.owners = owners;
+        this.loading = false;
+      });
   }
 
 }

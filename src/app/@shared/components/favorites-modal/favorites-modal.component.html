@@ -26,10 +26,10 @@
         </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" [style]="{textAlign: 'center'}" let-favorite>
-      <tr class="row" style="height:40px; cursor:pointer" (click)="showDetails(favorite)">
-        <td>{{favorite.firstName | summarizeText:[10]}}</td>
-        <td>{{favorite.lastName | summarizeText:[7]}}</td>
+    <ng-template pTemplate="body" let-favorite>
+      <tr class="row" [style]="{height: '40px', cursor: 'pointer'}" (click)="showDetails(favorite)">
+        <td>{{favorite.firstName | summarizeText:[6]}}</td>
+        <td>{{favorite.lastName | summarizeText:[6]}}</td>
         <td>{{favorite.gender}}</td>
         <td>{{favorite.status}}</td>
       </tr>

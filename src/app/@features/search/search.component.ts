@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GorestService } from 'src/app/@core';
+import { Owner } from 'src/app/@shared';
 
 @Component({
   selector: 'app-search',
@@ -7,15 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  datatable: any;
+  owners: Owner[] = [];
+  loading: boolean = true;
 
-  constructor() { }
+  constructor(private gorest: GorestService) { }
 
   ngOnInit() {
+    this.loadOwners();
   }
 
-  assignDatatable(datatable: any) {
-    this.datatable = datatable
+  loadOwners() {
+    this.gorest.getOwners()
+      .subscribe((owners: Owner[]) => {
+        this.owners = owners;
+        this.loading = false;
+      });
+  }
+
+  handleOwnersFound(event: Owner[]) {
+    console.log(event);
+    
+    this.owners = event;
   }
 
 }
