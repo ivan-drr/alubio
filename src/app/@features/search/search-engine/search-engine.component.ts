@@ -10,6 +10,7 @@ import { Owner } from 'src/app/@shared';
 export class SearchEngineComponent implements OnInit {
 
   @Output() ownersFound = new EventEmitter<Owner[]>();
+  @Output() search = new EventEmitter<string>();
 
   constructor(private gorest: GorestService) { }
 
@@ -18,6 +19,8 @@ export class SearchEngineComponent implements OnInit {
 
   handleSearch(name: string) {
     if (name.length <= 2) return;
+
+    this.search.emit(name);
     this.gorest
       .findOwnersByName(name)
       .subscribe((owners: Owner[]) => this.ownersFound.emit(owners));

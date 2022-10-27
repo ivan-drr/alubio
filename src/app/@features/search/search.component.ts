@@ -11,6 +11,7 @@ export class SearchComponent implements OnInit {
 
   owners: Owner[] = [];
   loading: boolean = true;
+  searchName!: string;
 
   constructor(private gorest: GorestService) { }
 
@@ -27,9 +28,11 @@ export class SearchComponent implements OnInit {
   }
 
   handleOwnersFound(event: Owner[]) {
-    console.log(event);
-    
     this.owners = event;
+  }
+
+  handleSearch(event: string) {
+    this.searchName = event;
   }
 
 }
