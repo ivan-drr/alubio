@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FavoritesService, GorestService } from 'src/app/@core';
+import { FavoritesService, MatagatosService } from 'src/app/@core';
 import { pageView } from 'src/app/@shared';
 
 @Component({
@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   displayFavorites: boolean = false;
 
-  constructor(private favoritesService: FavoritesService, private gorest: GorestService) { }
+  constructor(private favoritesService: FavoritesService, private matagatosService: MatagatosService) { }
 
   ngOnInit() {
     this.subscribeFavorites();
@@ -25,12 +25,12 @@ export class HeaderComponent implements OnInit {
   }
 
   subscribeFavorites() {
-    this.favoritesService.favorites
+    this.favoritesService.favorites$
       .subscribe(favorites => this.favoritos = favorites.length);
   }
 
   subscribeMatagatos() {
-    this.gorest.matagatos
+    this.matagatosService.matagatos$
       .subscribe(matagatos => {
         this.matagatos = matagatos;
       });

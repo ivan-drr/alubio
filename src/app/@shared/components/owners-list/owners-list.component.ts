@@ -9,34 +9,16 @@ import { Owner } from 'src/app/@shared';
 })
 export class OwnersListComponent implements OnInit {
 
-  owners!: Owner[];
-  loading: boolean = true;
-  ownersLoad: number = 0;
-
   displayDetails: boolean = false;
   selectedOwner!: Owner;
 
   @Input('search') search: boolean = false;
+  @Input('owners') owners: Owner[] = [];
+  @Input('loading') loading: boolean = true;
 
   constructor(private gorest: GorestService) { }
 
-  ngOnInit() {
-    this.loadOwners();
-    this.gorest.subscribeOwners();
-    this.gorest.perdiodicUpdateOwners();
-  }
-
-  loadOwners() {
-    if (this.gorest.owners)
-      this.gorest.owners
-        .subscribe((o: any) => {
-          this.ownersLoad++;
-          if (this.ownersLoad === 1) return;
-
-          this.owners = o;
-          this.loading = false;
-        });
-  }
+  ngOnInit() { }
 
   showMore() {
     this.loading = true;

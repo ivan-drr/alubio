@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GorestService } from 'src/app/@core';
+import { Owner } from 'src/app/@shared';
 
 @Component({
   selector: 'app-search-engine',
@@ -7,11 +9,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SearchEngineComponent implements OnInit {
 
-  @Input('datatable') datatable: any;
+  @Output() ownersFound = new EventEmitter<Owner[]>();
 
-  constructor() { }
+  constructor(private gorest: GorestService) { }
 
   ngOnInit() {
+  }
+
+  handleSearch(name: string) {
+    if (name.length <= 2) return;
+    this.gorest
+      .findOwnersByName(name)
+      .subscribe((owners: Owner[]) => this.ownersFound.emit(owners));
   }
 
 }
