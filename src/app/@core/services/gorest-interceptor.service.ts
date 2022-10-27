@@ -19,6 +19,7 @@ export class GorestInterceptorService implements HttpInterceptor {
 
         const tokenizeReq = req.clone({
             setHeaders: {
+                AccessControlAllowOrigin: '*',
                 Accept: 'application/json',
                 ContentType: 'application/json',
                 Authorization: `Bearer ${this.authService.getToken()}`
