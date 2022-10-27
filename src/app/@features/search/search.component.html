@@ -1,2 +1,2 @@
-<app-owners-list [owners]="owners" [loading]="loading"></app-owners-list>
-<app-search-engine (ownersFound)="handleOwnersFound($event)"></app-search-engine>
+<app-owners-list [owners]="owners" [loading]="loading" [searchName]="searchName"></app-owners-list>
+<app-search-engine (ownersFound)="handleOwnersFound($event)" (search)="handleSearch($event)"></app-search-engine>

@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class GorestService {
   private baseUrl = environment.baseUrl;
   private lastPage: number = 0;
+  private lastSearchPage: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -26,8 +27,9 @@ export class GorestService {
   }
 
   findOwnersByName(name: string) {
+    this.lastSearchPage++;
     return this.http
-      .get<OwnerRaw[]>(`${this.baseUrl}/users?name=${name}`)
+      .get<OwnerRaw[]>(`${this.baseUrl}/users?name=${name}&page=${this.lastSearchPage}&per_page=10`)
       .pipe(
         map((items: OwnerRaw[]) => this.mapOwners(items)),
         retry(1),

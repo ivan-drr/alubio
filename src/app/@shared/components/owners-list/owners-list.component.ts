@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GorestService } from 'src/app/@core';
 import { Owner } from 'src/app/@shared';
 
@@ -12,9 +13,9 @@ export class OwnersListComponent implements OnInit {
   displayDetails: boolean = false;
   selectedOwner!: Owner;
 
-  @Input('search') search: boolean = false;
   @Input('owners') owners: Owner[] = [];
   @Input('loading') loading: boolean = true;
+  @Input('searchName') searchName!: string;
 
   constructor(private gorest: GorestService) { }
 
@@ -22,7 +23,11 @@ export class OwnersListComponent implements OnInit {
 
   showMore() {
     this.loading = true;
-    this.gorest.getOwners()
+    let owners$: Observable<Owner[]>;
+    if (this.searchName) owners$ = this.gorest.findOwnersByName(this.searchName);
+    else owners$ = this.gorest.getOwners();
+
+    owners$
       .subscribe((owners: Owner[]) => {
         this.owners = [...this.owners, ...owners];
         this.loading = false;
